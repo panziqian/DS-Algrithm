@@ -5,8 +5,8 @@ using namespace std;
 class pzqueue
 {
     private:
-    int front;
-    int rear;
+        int front;
+        int rear;
     public:
         int arr[MAX_SIZE];
         pzqueue()
