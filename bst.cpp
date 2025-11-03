@@ -50,14 +50,31 @@ void insert(TreeNode *&root, int x)
         insert(root->right, x);
     return;
 }
-void find(TreeNode *root, int x)
+TreeNode *find(TreeNode *root, int x)
 {
-    while (1)
+    if(root==nullptr)
+        return nullptr;
+    if (x == root->key)
+        return root;
+    else if (x < root->key)
+        return find(root->left,x);
+    else
+        return find(root->right,x);
+}
+TreeNode *nonrecur_find(TreeNode *root,int x)
+{
+    if(root==nullptr)
+        return nullptr;
+    while(root!=nullptr)
     {
-        if (x < root->key)
-        {
-        }
+        if(root->key==x)
+            return root;
+        else if(root->key>x)
+            root=root->right;
+        else 
+            root-root->left;
     }
+    return nullptr;
 }
 TreeNode *build(int *arr)
 {
@@ -73,7 +90,7 @@ TreeNode *build(int *arr)
     return root;
 }
 
-int arr[10005]={1,3,2,90,66,23,12,875,-1};
+int arr[10005] = {1, 3, 2, 90, 66, 23, 12, 875, -1};
 int main()
 {
     TreeNode *root = build(arr);
@@ -81,6 +98,6 @@ int main()
     cout << endl;
     TreeNode *maxNode = findMax(root);
     TreeNode *minNode = findMin(root);
-    cout<<"Max:"<<maxNode->key<<" "<<"Min:"<<minNode->key<<endl;
+    cout << "Max:" << maxNode->key << " " << "Min:" << minNode->key << endl;
     return 0;
 }
