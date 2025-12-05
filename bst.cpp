@@ -203,7 +203,7 @@ void check(TreeNode *root, int x)
 
 int main()
 {
-    freopen("text.in", "r", stdin);
+    freopen("bst.in", "r", stdin);
     TreeNode *root = nullptr;
     input(root);
     // test the output

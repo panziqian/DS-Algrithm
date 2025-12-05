@@ -6,11 +6,11 @@ int n, m = 20;
 int arr[MAX_NUM];
 class Node
 {
-public:
+  public:
     int val;
     int num;
     Node *nxt;
-    Node() : val(0), nxt(nullptr), num(0) {};
+    Node() : val(0), num(0), nxt(nullptr) {};
     Node(int value, int number)
     {
         num = number;
@@ -20,7 +20,7 @@ public:
 };
 class LinkList
 {
-public:
+  public:
     int size;
     Node *head;
     Node *rear;
@@ -28,16 +28,16 @@ public:
     LinkList(int *arr, int n)
     {
         size = 1;
-        head = new Node(arr[1],1);
+        head = new Node(arr[1], 1);
         rear = head;
         for (int i = 2; i <= n; i++)
-            push(arr[i],i);
+            push(arr[i], i);
         rear->nxt = head;
     }
-    void push(int x,int number)
+    void push(int x, int number)
     {
         size++;
-        Node *tmp = new Node(x,number);
+        Node *tmp = new Node(x, number);
         rear->nxt = tmp;
         rear = rear->nxt;
     }
@@ -50,18 +50,41 @@ public:
     int delet(Node *x)
     {
         int res = x->num;
-        Node *it = head;
-        while (it->nxt != x)
-            it++;
-        it->nxt = x->nxt;
-        free(x);
+        if (size == 1)
+        {
+            size = 0;
+            delete x;
+            head = rear = nullptr;
+            return res;
+        }
         size--;
+        if (x->num == head->num)
+        {
+            rear->nxt = head->nxt;
+            head = rear->nxt;
+            delete x;
+            return res;
+        }
+        Node *it = head;
+        while (it->nxt->num != res)
+            it = it->nxt;
+        if (x == rear)
+            rear = it;
+        it->nxt = x->nxt;
+        delete x;
         return res;
     }
 };
 void process(int *arr, int n)
 {
     LinkList *l = new LinkList(arr, n);
+    Node *iter = l->head;
+    while (iter->num != l->head->num)
+    {
+        cout << iter->num << "->" << iter->val << endl;
+        iter = iter->nxt;
+    }
+    cout << endl;
     int cnt = 1;
     Node *it = l->head;
     while (!l->empty())
@@ -82,13 +105,14 @@ void process(int *arr, int n)
         }
     }
 }
-int main(int argc, char *argv[])
+int main()
 {
+    freopen("ysf.in", "r", stdin);
     cin >> n;
     for (int i = 1; i <= n; i++)
         cin >> arr[i];
-        LinkList *ls = new LinkList(arr, n);
-        Node *it = ls->head;
+    LinkList *ls = new LinkList(arr, n);
+    Node *it = ls->head;
     process(arr, n);
     return 0;
 }

@@ -164,6 +164,7 @@ int main()
     input(root);
     printf("\n");
     inorder(root);
+    printf("\n");
     float ASL=calASL(root);
     cout<<"ASL of AVL is "<<ASL<<endl;
     printf("\n----------------\n");

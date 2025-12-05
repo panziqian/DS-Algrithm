@@ -13,7 +13,6 @@ void res_print()
         }
         cout<<endl;
     }
-    cout<<"-------------------------"<<endl;
 }
 bool checkVaild(int row,int col)
 {
@@ -61,7 +60,7 @@ bool fun(int row,int col)
     for(int i=1;i<=8;i++)
     {
         bd[row+1][i]=1;
-        bool res=fun(row+1,i);
+        fun(row+1,i);
         if(s_flag)
             return true;
         bd[row+1][i]=0;
@@ -70,8 +69,7 @@ bool fun(int row,int col)
 }
 int main()
 {
-    bool res=fun(0,0);
+    fun(0,0);
     res_print();
-    cout<<"res = "<<res<<endl;
     return 0;
 }

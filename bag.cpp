@@ -46,7 +46,7 @@ void find_solution(int itemNum,int total_weight)
 }
 int main()
 {
-    //freopen("bag.in","r",stdin);
+    freopen("bag.in","r",stdin);
     cin>>weight>>n;
     for(int i=0;i<n;i++)
         cin>>arr[i];
