@@ -151,7 +151,7 @@ void input(AVLNode *&root)
         }
         else
         {
-            printf("%d ", num);
+            //printf("%d ", num);
             root = Insert(root, num);
             num = 0;
         }
@@ -162,11 +162,11 @@ int main()
     freopen("avl.in", "r", stdin);
     AVLNode *root = nullptr;
     input(root);
-    printf("\n");
+    cout<<"Inorder: ";
     inorder(root);
-    printf("\n");
+    cout<<endl;
     float ASL=calASL(root);
-    cout<<"ASL of AVL is "<<ASL<<endl;
+    cout<<"ASL of AVL is "<<ASL;
     printf("\n----------------\n");
     printSideways(root);
     fclose(stdin);

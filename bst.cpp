@@ -201,12 +201,24 @@ void check(TreeNode *root, int x)
     return;
 }
 
+void printSideways(TreeNode *root, int depth = 0)
+{
+    if (!root)
+        return;
+    printSideways(root->right, depth + 1);
+    for (int i = 0; i < depth; ++i)
+        cout << "    ";
+    cout << root->key << "\n";
+    printSideways(root->left, depth + 1);
+}
+
 int main()
 {
     freopen("bst.in", "r", stdin);
     TreeNode *root = nullptr;
     input(root);
     // test the output
+    cout << "Inorder: ";
     iteration(root); // 对BST进行中序遍历
     cout << endl;
     // output the ASL of the BST
@@ -217,10 +229,16 @@ int main()
     TreeNode *maxNode = findMax(root);
     TreeNode *minNode = findMin(root);
     cout << "Max:" << maxNode->key << " " << "Min:" << minNode->key << endl;
+    printf("\n----------------\n");
+    printSideways(root);
+    printf("\n----------------\n");
     int x = 1;
     cin >> x;
-    printf("searching %d ...\n",x);
+    printf("searching %d ...\n", x);
     check(root, x);
+    cout << "\nDeleted!";
+    printf("\n----------------\n");
+    printSideways(root);
     fclose(stdin);
     return 0;
 }

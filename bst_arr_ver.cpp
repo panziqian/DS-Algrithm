@@ -16,10 +16,7 @@ class BST
         size = 0;
         last_pos = 1;
     }
-    ~BST()
-    {
-        destroy();
-    }
+    ~BST() { destroy(); }
     void destroy()
     {
         memset(arr, 0, sizeof(arr));
@@ -66,6 +63,16 @@ class BST
         inorder_iteration(2 * pos);
         cout << arr[pos] << " ";
         inorder_iteration(2 * pos + 1);
+    }
+    void printSideways(int pos = 1, int depth = 0)
+    {
+        if (pos > last_pos || arr[pos] == 0)
+            return;
+        printSideways(2 * pos, depth + 1);
+        for (int i = 0; i < depth; ++i)
+            cout << "    ";
+        cout << arr[pos] << "\n";
+        printSideways(2 * pos + 1, depth + 1);
     }
     int findMax(int root_pos)
     {
@@ -127,16 +134,17 @@ class BST
             updateLastPos(right);
         return;
     }
-    int getDepthSum(int pos=1,int depth=1)
+    int getDepthSum(int pos = 1, int depth = 1)
     {
-        if(arr[pos]==0 || pos>last_pos)
+        if (arr[pos] == 0 || pos > last_pos)
             return 0;
-        return depth+getDepthSum(2*pos,depth+1)+ getDepthSum(2*pos+1,depth+1);
+        return depth + getDepthSum(2 * pos, depth + 1) +
+               getDepthSum(2 * pos + 1, depth + 1);
     }
     float getASL()
     {
-        int depthSum=getDepthSum();
-        return (float)depthSum/(float)size;
+        int depthSum = getDepthSum();
+        return (float)depthSum / (float)size;
     }
 };
 
@@ -152,11 +160,11 @@ void input(BST *tree)
         }
         else if (num != 0)
         {
-            printf("%d ", num);
             tree->insert(num);
             num = 0;
         }
     }
+    tree->insert(num);
     return;
 }
 
@@ -182,20 +190,26 @@ int main()
     // 1 3 2 90 66 23 12 875\n
     // 3
     BST *tree = new BST();
-    cout << "The input data: ";
     input(tree);
 
     // tests
-    printf("\n");
+    cout << "Inorder: ";
     tree->inorder_iteration();
     printf("\n");
-    float ASL=tree->getASL();
-    cout<<"The ASL of the BST is "<<ASL<<endl;
+    float ASL = tree->getASL();
+    cout << "The ASL of the BST is " << ASL << endl;
+    printf("\n----------------\n");
+    tree->printSideways();
+    printf("\n----------------\n");
     int x;
     cin >> x;
     printf("The pos of value %d is ", x);
     cout << tree->find(x) << endl;
+    cout << "Inorder: ";
     check(tree, x);
+    printf("\n----------------\n");
+    tree->printSideways();
+    printf("\n----------------\n");
     fclose(stdin);
     return 0;
 }

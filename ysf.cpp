@@ -79,11 +79,12 @@ void process(int *arr, int n)
 {
     LinkList *l = new LinkList(arr, n);
     Node *iter = l->head;
-    while (iter->num != l->head->num)
+    do
     {
         cout << iter->num << "->" << iter->val << endl;
         iter = iter->nxt;
     }
+    while (iter->num != l->head->num);
     cout << endl;
     int cnt = 1;
     Node *it = l->head;
@@ -111,8 +112,7 @@ int main()
     cin >> n;
     for (int i = 1; i <= n; i++)
         cin >> arr[i];
-    LinkList *ls = new LinkList(arr, n);
-    Node *it = ls->head;
+    new LinkList(arr, n);
     process(arr, n);
     return 0;
 }
